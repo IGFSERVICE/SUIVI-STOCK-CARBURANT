@@ -344,7 +344,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Livraisons',
-                    'url' => 'approvisionnements',
+                    'url' => 'approvisionnements/create',
                     'icon' => 'fas fa-gas-pump',
                 ],
                 [
@@ -372,7 +372,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Statistiques',
-                    'url' => 'statistiques',
+                    'url' => 'consommation-vehicules',
                     'icon' => 'fas fa-chart-bar',
                 ],
                 [

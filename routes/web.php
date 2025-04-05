@@ -7,6 +7,7 @@ use App\Http\Controllers\ChauffeurController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\StatistiqueController;
+use App\Http\Controllers\ConsommationController;
 use App\Http\Controllers\ApprovisionnementController;
 
 
@@ -51,5 +52,7 @@ Route::get('/statistiques', [StatistiqueController::class, 'index'])->name('stat
 
 // Consommation
 Route::get('/consommation', [ApprovisionnementController::class, 'consommation'])->name('approvisionnements.consommation');
+Route::get('/consommation-vehicules', [ConsommationController::class, 'index'])->name('consommation.vehicules');
+Route::get('/consommation/details', [ConsommationController::class, 'details'])->name('consommation.details');
 
 Route::resource('destinations', DestinationController::class);

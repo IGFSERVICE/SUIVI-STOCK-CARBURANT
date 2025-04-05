@@ -62,9 +62,11 @@ class ApprovisionnementController extends Controller
         // Calcul du total des quantités AVANT la pagination
         $totalQuantite = $query->clone()->sum('quantite');
 
+        
+
         // Appliquer la pagination
         $approvisionnements = $query->orderBy('date', 'desc')->paginate(10)->appends($request->query());
-
+        
         return view('approvisionnements.index', compact('approvisionnements', 'totalQuantite', 'destinations', 'types'));
     }
 
