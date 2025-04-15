@@ -11,27 +11,27 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ApprovisionnementsExport implements FromCollection, WithHeadings, WithMapping
 {
-    protected $approvisionnements;
+    protected $Livraisons;
 
-    public function __construct($approvisionnements)
+    public function __construct($Livraisons)
     {
-        $this->approvisionnements = $approvisionnements;
+        $this->Livraisons = $Livraisons;
     }
 
     public function collection()
     {
-        return $this->approvisionnements;
+        return $this->Livraisons;
     }
 
-    public function map($approvisionnement): array
+    public function map($Livraisons): array
     {
         return [
-            $approvisionnement->id,
-            $approvisionnement->vehicule->matricule,
-            $approvisionnement->vehicule->type,
-            $approvisionnement->chauffeur->nom,
-            $approvisionnement->destination->nom,
-            $approvisionnement->quantite,
+            $Livraisons->id,
+            $Livraisons->vehicule->matricule,
+            $Livraisons->vehicule->type,
+            $Livraisons->chauffeur->nom,
+            $Livraisons->destination->nom,
+            $Livraisons->quantite,
         ];
     }
 

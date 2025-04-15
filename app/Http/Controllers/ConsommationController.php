@@ -19,7 +19,21 @@ class ConsommationController extends Controller
     $query = Approvisionnement::selectRaw('vehicule_id, SUM(quantite) as total_quantite')
         ->with('vehicule')
         ->groupBy('vehicule_id');
-        $query1 = Approvisionnement::with(['vehicule', 'chauffeur', 'destination']);
+    
+    $query1 = Approvisionnement::with(['vehicule', 'chauffeur', 'destination']);
+        // Appliquer les filtres à $query1
+    if ($dateDebut) {
+        $query1->where('date', '>=', $dateDebut);
+    }
+    if ($dateFin) {
+        $query1->where('date', '<=', $dateFin);
+    }
+    if ($typeVehicule) {
+        $query1->whereHas('vehicule', function ($q) use ($typeVehicule) {
+            $q->where('type', $typeVehicule);
+        });
+    }
+
 
 
     // Appliquer le filtre de date
@@ -59,32 +73,28 @@ class ConsommationController extends Controller
     $dateDebut = $request->input('date_debut');
     $dateFin = $request->input('date_fin');
 
-    // Récupérer les approvisionnements du véhicule sélectionné
-    $query1 = Approvisionnement::where('vehicule_id', $vehiculeId)
-        ->with(['vehicule', 'chauffeur', 'destination']) // Charger les relations
-        ->orderBy('date', 'desc');
-    
-    $query2 = Approvisionnement::where('vehicule_id', $vehiculeId)
-    ->with(['vehicule', 'chauffeur', 'destination']) // Charger les relations
+    $query = Approvisionnement::where('vehicule_id', $vehiculeId)
+    ->with(['vehicule', 'chauffeur', 'destination'])
     ->orderBy('date', 'desc');
 
+// Appliquer les filtres de date
+if ($dateDebut) {
+    $query->where('date', '>=', $dateDebut);
+}
+if ($dateFin) {
+    $query->where('date', '<=', $dateFin);
+}
 
-    // Appliquer le filtre de date si fourni
-    if ($dateDebut) {
-        $query1->where('date', '>=', $dateDebut);
-    }
-    if ($dateFin) {
-        $query2->where('date', '<=', $dateFin);
-    }
-     
-    // Calcul du total consommé par ce véhicule sur la période
-    $totalConsommation = $query1->sum('quantite');
+// Calcul du total consommé
+$totalConsommation = $query->sum('quantite');
 
-    $approvisionnements = $query1->paginate(5)->appends([
-        'vehicule_id' => $vehiculeId,
-        'date_debut' => $dateDebut,
-        'date_fin' => $dateFin,
-    ]);
+// Pagination
+$approvisionnements = $query->paginate(5)->appends([
+    'vehicule_id' => $vehiculeId,
+    'date_debut' => $dateDebut,
+    'date_fin' => $dateFin,
+]);
+
    
 
     return view('consommation.details', compact('approvisionnements', 'totalConsommation'));

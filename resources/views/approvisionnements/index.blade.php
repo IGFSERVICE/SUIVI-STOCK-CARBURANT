@@ -49,11 +49,9 @@
         </div>
     </form>
 
-   <!-- Bouton d'exportation -->
+
 <div class="mb-3">
-    <a href="{{ route('approvisionnements.export', request()->query()) }}" class="btn btn-success">
-        Exporter en Excel
-    </a>
+    <a href="{{ route('approvisionnements.create') }}" class="btn btn-success">Livrer</a>
 </div>
     <!-- Affichage du total des quantités -->
     {{-- <div class="alert alert-info">
@@ -114,5 +112,11 @@
     <div class="d-flex justify-content-center">
         {{ $approvisionnements->links() }}
     </div>
+       <!-- Bouton d'exportation -->
+<div class="mb-3">
+    <a href="{{ route('approvisionnements.export', request()->query()) }}" class="btn btn-success">
+        Exporter en Excel
+    </a>
+</div>
 </div>
 @endsection

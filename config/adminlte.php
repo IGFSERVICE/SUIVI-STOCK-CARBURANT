@@ -344,7 +344,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Livraisons',
-                    'url' => 'approvisionnements/create',
+                    'url' => 'approvisionnements',
                     'icon' => 'fas fa-gas-pump',
                 ],
                 [
