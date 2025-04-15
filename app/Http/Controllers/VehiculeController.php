@@ -18,7 +18,8 @@ class VehiculeController extends Controller
 
     public function create()
     {
-        return view('vehicules.create');
+        $vehicules = Vehicule::all();
+        return view('vehicules.create', compact('vehicules'));
     }
 
     public function store(Request $request)
@@ -30,8 +31,8 @@ class VehiculeController extends Controller
             'matricule.unique' => 'Ce matricule existe déjà ! Veuillez en choisir un autre.',
         ]);
 
-        Vehicule::create($request->all());
-        return redirect()->route('vehicules.index')->with('success', 'Véhicule ajouté');
+        $vehicule= Vehicule::create($request->all());
+        return redirect()->route('vehicules.index')->with('success', 'Véhicule ajouté')->compact('vehicule');
     }
 
     public function edit(Vehicule $vehicule)
