@@ -23,9 +23,9 @@
                     <a href="{{ route('vehicules.edit', $vehicule) }}" class="btn btn-warning">Modifier</a>
                     <form action="{{ route('vehicules.destroy', $vehicule) }}" method="POST" style="display:inline;">
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                        {{-- <button type="submit" class="btn btn-danger">Supprimer</button> --}}
                     </form>
-                </td>
+                {{-- </td> --}}
             </tr>
             @endforeach
         </tbody>

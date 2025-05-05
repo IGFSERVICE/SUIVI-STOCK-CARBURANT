@@ -26,13 +26,13 @@ class VehiculeController extends Controller
     {
         $request->validate([
             'matricule' => 'required|unique:vehicules',
-            'type' => 'required|in:Camion,Mini-camion,Pickup',
+            'type' => 'required',
         ],[
             'matricule.unique' => 'Ce matricule existe déjà ! Veuillez en choisir un autre.',
         ]);
 
         $vehicule= Vehicule::create($request->all());
-        return redirect()->route('vehicules.index')->with('success', 'Véhicule ajouté')->compact('vehicule');
+        return redirect()->route('vehicules.index')->with('success', 'Véhicule ajouté');
     }
 
     public function edit(Vehicule $vehicule)
