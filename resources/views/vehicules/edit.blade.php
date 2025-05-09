@@ -19,9 +19,11 @@
             <label>Type de véhicule</label>
             <select name="type" class="form-control" required>
                 <option value="">-- Sélectionnez un type --</option>
-                <option value="Camion" {{ old('type', $vehicule->type ?? '') == 'Camion' ? 'selected' : '' }}>Camion</option>
-                <option value="Mini-camion" {{ old('type', $vehicule->type ?? '') == 'Mini-camion' ? 'selected' : '' }}>Mini-camion</option>
-                <option value="Pickup" {{ old('type', $vehicule->type ?? '') == 'Pickup' ? 'selected' : '' }}>Pickup</option>
+                @foreach($types as $type)
+                    <option value="{{ $type }}" {{ old('type', $vehicule->type ?? '') == $type ? 'selected' : '' }}>
+                        {{ $type }}
+                    </option>
+                @endforeach
             </select>
             @error('type')
                 <div class="text-danger">{{ $message }}</div>

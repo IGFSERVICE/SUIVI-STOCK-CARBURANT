@@ -37,15 +37,16 @@ class VehiculeController extends Controller
 
     public function edit(Vehicule $vehicule)
     {
-        
-        return view('vehicules.edit', compact('vehicule'));
+        $types = Vehicule::select('type')->distinct()->pluck('type');
+
+        return view('vehicules.edit', compact('vehicule', 'types'));       
     }
 
     public function update(Request $request, Vehicule $vehicule)
     {
         $request->validate([
             'matricule' => 'required|unique:vehicules,matricule,' . $vehicule->id,
-            'type' => 'required|in:Camion,Mini-camion,Pickup',
+            'type' => 'required',
         ],[
             'matricule.unique' => 'Ce matricule existe déjà ! Veuillez en choisir un autre.',
         ]);
